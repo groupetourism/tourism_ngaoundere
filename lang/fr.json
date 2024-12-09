@@ -1,0 +1,23 @@
+{
+    "site": "site|sites",
+    "user": "utilisateur|utilisateurs",
+    "vehicle": "véhicule|véhicules",
+    "hotel": "hôtel|hôtels",
+    "room": "chambre|chambres",
+    "tour": "visite|visites",
+    "reservation": "réservation|réservations",
+    "event": "événement|événements",
+
+    ":title added successfully": ":title ajouté avec succès",
+    ":title registered successfully": ":title enregistré avec succès",
+    ":title updated successfully": ":title mise à jour avec succès",
+    ":title deactivated successfully": ":title désactivé avec succès",
+    ":title activated successfully": ":title activé avec succès",
+    ":title deleted successfully": ":title supprimé avec succès",
+    ":title retrieved successfully": ":title récupéré avec succès",
+    "list of :title retrieved successfully": "liste des :title récupérés avec succès",
+
+    "successfully login": "connexion réussi",
+    "successfully logout": "déconnexion réussi",
+    "Incorrect credentials, login failed": "Informations incorrectes, la connexion a échoué"
+}
