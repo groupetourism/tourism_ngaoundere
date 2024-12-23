@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('hotel_id')->constrained();
+            $table->foreignId('accommodation_id')->constrained();
+            $table->string('room_number');
+            $table->string('capacity');
             $table->integer('price_per_night');
             $table->boolean('is_available');
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

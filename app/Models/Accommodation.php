@@ -4,9 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Hotel extends Model
+class Accommodation extends Model
 {
     protected $guarded = [];
+
+    public function reservations(): MorphMany
+    {
+        return $this->morphMany(Reservation::class, 'reservable');
+    }
 
     public function rooms(): HasMany
     {

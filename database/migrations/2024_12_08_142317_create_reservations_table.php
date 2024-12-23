@@ -16,9 +16,11 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->integer('reservable_id');
-            $table->string('reservable_type');
+            $table->float('total_price');
+            $table->enum('status', [0, 1, -1]);
+            $table->morphs('reservable');
             $table->timestamps();
+            //ne pas faire une reservation pr la mm periode pr 1 mm type de modèle reservable par un mm user
         });
     }
 

@@ -18,9 +18,9 @@ class Tour extends Model
         return $this->belongsTo(Site::class, 'site_id', 'id');
     }
 
-    public function hotel(): BelongsTo
+    public function accommodation(): BelongsTo
     {
-        return $this->belongsTo(Hotel::class, 'hotel_id', 'id');
+        return $this->belongsTo(Accommodation::class, 'hotel_id', 'id');
     }
 
     public function vehicle(): BelongsTo

@@ -14,7 +14,7 @@ class SiteController extends Controller
 {
     use ApiResponse;
     public function index(ListRequest $request): JsonResponse
-    {
+    {//trie pas jour ouvert
         $search = strtoupper($request->input('search'));
         $query = Site::query()->where('name', 'like',  "%{$search}%")->paginate(config('constants.PAGINATION_LIMIT'));
 

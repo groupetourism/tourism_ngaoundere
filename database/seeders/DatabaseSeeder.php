@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             SiteSeeder::class,
             ReservationSeeder::class,
             VehicleSeeder::class,
-            HotelSeeder::class,
+            AccommodationSeeder::class,
             RoomSeeder::class,
             EventSeeder::class,
             TourSeeder::class,

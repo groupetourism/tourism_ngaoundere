@@ -15,7 +15,7 @@ class EventSeeder extends Seeder
     {
         DB::table('hotels')->insert([
             [
-                'site_id' => 1, 'name' => 'Waterfall Festival', 'description' => 'An annual festival celebrating the beauty of the waterfall.', 'start_time' => '2024-01-15 10:00:00', 'end_time' => '2024-01-15 18:00:00', 'ticket_price' => 1000,
+                'site_id' => 1, 'name' => 'Waterfall Festival', 'description' => 'An annual festival celebrating the beauty of the waterfall.', 'ticket_price' => 1000, 'start_date' => '2024-01-15 10:00:00', 'end_date' => '2024-01-15 18:00:00',
             ]
         ]);
     }

@@ -13,8 +13,8 @@ class VehicleSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('hotels')->insert([
-            ['type' => 'Bus', 'provider_name' => 'Ngaoundere Bus Services', 'price' => 1500, 'contact_info' => 'info@ngaounderebus.com', 'website' => 'http://ngaounderebus.com',]
+        DB::table('vehicles')->insert([
+            ['type' => 1, 'license_plate' => 'AUF42-23HFZ', 'provider_name' => 'Touristique', 'description' => 'blabla', 'number_of_places' => 5, 'price_per_hour' => 200, 'is_available' => 0, 'image_url' => 'https://fakeimg.pl/300/', 'contact_info' => 'info@ngaounderebus.com', 'website' => 'https://ngaounderebus.com',]
         ]);
     }
 }

@@ -14,6 +14,6 @@ class Room extends Model
 
     public function hotel(): BelongsTo
     {
-        return $this->belongsTo(Hotel::class, 'hotel_id', 'id');
+        return $this->belongsTo(Accommodation::class, 'hotel_id', 'id');
     }
 }

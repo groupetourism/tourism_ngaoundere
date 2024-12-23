@@ -13,9 +13,16 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['Bus', 'Taxi', 'Rental Car']);
-            $table->integer('price');
+            $table->enum('type', [1, 2, 3]);
+            $table->string('license_plate')->unique();
+            $table->integer('provider_name');
+            $table->integer('description')->nullable();
+            $table->integer('number_of_places');
+            $table->integer('price_per_hour');
             $table->boolean('is_available');
+            $table->string('image_url')->nullable();
+            $table->string('contact_info')->nullable();
+            $table->string('website')->nullable();
             $table->timestamps();
         });
     }

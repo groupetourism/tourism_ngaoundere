@@ -15,10 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('site_id')->constrained();
-            $table->foreignId('hotel_id')->nullable()->constrained();
+            $table->foreignId('accommodation_id')->nullable()->constrained();
             $table->foreignId('vehicle_id')->nullable()->constrained();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+//            $table->foreignId('reservation_id')->nullable()->constrained(); // ids[]
+//            $table->integer('number_of_persons')->nullable();
+//            $table->float('total_cost');
+            $table->unique(['user_id', 'site_id', 'start_date', 'end_date']);
             $table->timestamps();
         });
     }
