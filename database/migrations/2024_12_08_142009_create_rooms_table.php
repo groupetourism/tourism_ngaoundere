@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('capacity');
             $table->integer('price_per_night');
             $table->boolean('is_available');
-            $table->string('image_url')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -14,6 +14,19 @@ class SiteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'opening_hours' => $this->opening_hours,
+            'ticket_price' => $this->ticket_price,
+            'image' => $this->image,
+            'contact_info' => $this->contact_info,
+            'website' => $this->website,
+            'events' => EventResource::collection($this->whenLoaded('events')),
+            'tours' => TourResource::collection($this->whenLoaded('tours')),
+        ];
     }
 }

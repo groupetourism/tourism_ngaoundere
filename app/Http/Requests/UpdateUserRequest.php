@@ -3,15 +3,16 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class HotelRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,13 @@ class HotelRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->route('user');
         return [
-            //
+            'lastname' => 'string|max:100',
+            'firstname' => 'max:100',
+            'phone' => ['string', 'max:9', Rule::unique('users')->ignore($userId)],
+            'email' => ['email', 'max:100', Rule::unique('users')->ignore($userId)],
+            'is_admin' => 'boolean',
         ];
     }
 }

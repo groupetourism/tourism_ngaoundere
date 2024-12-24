@@ -11,7 +11,7 @@ class EventRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'site_id' => 'required|numeric|exists:sites,id',
+            'name' => 'required|string|max:100',
+            'description' => 'string|max:255',
+            'ticket_price' => 'numeric',
+            'start_date' => 'required|date|after_or_equal:' . now(config('constants.TIME_ZONE'))->format('Y-m-d H:i:s'),
+            'end_date' => 'required|date|after:start_date',
+            'image' => 'file|mimes:pdf,jpg,png',
         ];
     }
 }

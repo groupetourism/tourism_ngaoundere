@@ -6,36 +6,44 @@ use App\Http\Requests\ListRequest;
 use App\Http\Requests\RoomRequest;
 use App\Http\Resources\RoomResource;
 use App\Http\Traits\ApiResponse;
+use App\Http\Traits\FileTrait;
 use App\Models\Room;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    use ApiResponse;
+    use ApiResponse, FileTrait;
     public function index(ListRequest $request): JsonResponse
-    {
-        $search = strtoupper($request->input('search'));
-        $query = Room::query()->where('name', 'like',  "%{$search}%")->paginate(config('constants.PAGINATION_LIMIT'));
+    {//trei par prix, capacite
+        $search = ucwords($request->input('search'), " ");
+        $hotel = $request->input('hotel');
+        $available = $request->input('available');
+        $query = Room::query()->where('name', 'like',  "%{$search}%")->where('accommodation_id', $hotel)->where('is_available', $available)
+            ->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('room', 2)]),
             $query->currentPage(), $query->lastPage(), RoomResource::collection($query->items()));
     }
 
-    public function store(RoomRequest $request): JsonResponse
-    {
-        Room::create($request->validated());
-        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('room', 1)]));
-    }
-
     public function show(Room $room): JsonResponse
     {
-        return $this->respondWithSuccess(__('list of :title retrieved successfully', ['title'=>trans_choice('room', 1)]), $room->get());
+        return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('room', 1)]), $room);
+    }
+
+    public function store(RoomRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+        $data['image'] = $this->uploadFile($request, 'image', 'public/rooms');
+        Room::create($data);
+        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('room', 1)]));
     }
 
     public function update(RoomRequest $request, Room $room): JsonResponse
     {
-        $room->update($request->validated());
+        $data = $request->validated();
+        $data['image'] = $this->uploadFile($request, 'image', 'public/rooms');
+        $room->update($data);
         return $this->respondWithSuccess(__(':title updated successfully', ['title'=>trans_choice('room', 1)]));
     }
 

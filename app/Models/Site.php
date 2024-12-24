@@ -21,6 +21,16 @@ class Site extends Model
         return $this->hasMany(Tour::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($site) {
+            $site->name = ucwords($site->name, " ");
+        });
+        static::updating(function ($site) {
+            $site->name = ucwords($site->name, " ");
+        });
+    }
     public function isOpenOn($day)
     {
         $hours = $this->opening_hours[$day] ?? null;

@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->double('latitude');
             $table->double('longitude');
             $table->json('opening_hours');
             $table->integer('ticket_price')->nullable();
-            $table->string('image_url')->nullable();
+            $table->string('image')->nullable();
             $table->string('contact_info')->nullable();
             $table->string('website')->nullable();
             $table->timestamps();

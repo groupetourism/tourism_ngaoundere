@@ -2,7 +2,7 @@
     "site": "site|sites",
     "user": "utilisateur|utilisateurs",
     "vehicle": "véhicule|véhicules",
-    "hotel": "hôtel|hôtels",
+    "accommodation": "hébergement / infrastructure|hébergements / infrastructures",
     "room": "chambre|chambres",
     "tour": "visite|visites",
     "reservation": "réservation|réservations",

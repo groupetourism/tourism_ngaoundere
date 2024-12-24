@@ -16,10 +16,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('site_id')->nullable()->constrained();
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->integer('ticket_price')->nullable();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->unique(['name', 'start_date', 'end_date']);
         });

@@ -6,38 +6,43 @@ use App\Http\Requests\ListRequest;
 use App\Http\Requests\EventRequest;
 use App\Http\Resources\EventResource;
 use App\Http\Traits\ApiResponse;
+use App\Http\Traits\FileTrait;
 use App\Models\Event;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    use ApiResponse;
+    use ApiResponse, FileTrait;
     public function index(ListRequest $request): JsonResponse
-    {
-        $search = strtoupper($request->input('search'));
-        $query = Event::query()->where('name', 'like',  "%{$search}%")->paginate(config('constants.PAGINATION_LIMIT'));
+    {//trie pas prix
+        $search = ucwords($request->input('search'), " ");
+        $site = $request->input('site');
+        $query = Event::query()->where('name', 'like',  "%{$search}%")->where('site_id', $site)
+            ->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('event', 2)]),
             $query->currentPage(), $query->lastPage(), EventResource::collection($query->items()));
     }
 
-    public function store(EventRequest $request): JsonResponse
-    {
-        $event = $request->validated();
-        $event['event_picture'] = $this->updateUserFile($request, 'event_picture', 'public/event_pictures');
-        Event::create($event);
-        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('event', 1)]));
-    }
-
     public function show(Event $event): JsonResponse
     {
-        return $this->respondWithSuccess(__('list of :title retrieved successfully', ['title'=>trans_choice('event', 1)]), $event->get());
+        return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('event', 1)]), $event);
+    }
+
+    public function store(EventRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+        $data['image'] = $this->uploadFile($request, 'image', 'public/events');
+        Event::create($data);
+        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('event', 1)]));
     }
 
     public function update(EventRequest $request, Event $event): JsonResponse
     {
-        $event->update($request->validated());
+        $data = $request->validated();
+        $data['image'] = $this->uploadFile($request, 'image', 'public/events');
+        $event->update($data);
         return $this->respondWithSuccess(__(':title updated successfully', ['title'=>trans_choice('event', 1)]));
     }
 

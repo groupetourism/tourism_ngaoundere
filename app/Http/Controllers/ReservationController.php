@@ -15,24 +15,23 @@ class ReservationController extends Controller
     use ApiResponse;
     public function index(ListRequest $request): JsonResponse
     {
-        $search = strtoupper($request->input('search'));
-        $query = Reservation::query()->where('name', 'like',  "%{$search}%")->paginate(config('constants.PAGINATION_LIMIT'));
+//        $user = auth()->id();->where('user_id', $user)
+        $status = $request->input('status');
+        $query = Reservation::query()->where('status', $status)->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('reservation', 2)]),
             $query->currentPage(), $query->lastPage(), ReservationResource::collection($query->items()));
     }
 
-    public function store(ReservationRequest $request): JsonResponse
-    {
-        $reservation = $request->validated();
-        $reservation['reservation_picture'] = $this->updateUserFile($request, 'reservation_picture', 'public/reservation_pictures');
-        Reservation::create($reservation);
-        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('reservation', 1)]));
-    }
-
     public function show(Reservation $reservation): JsonResponse
     {
-        return $this->respondWithSuccess(__('list of :title retrieved successfully', ['title'=>trans_choice('reservation', 1)]), $reservation->get());
+        return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('reservation', 1)]), $reservation);
+    }
+
+    public function store(ReservationRequest $request): JsonResponse
+    {
+        Reservation::create($request->validated());
+        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('reservation', 1)]));
     }
 
     public function update(ReservationRequest $request, Reservation $reservation): JsonResponse

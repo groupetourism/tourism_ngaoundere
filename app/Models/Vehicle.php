@@ -16,4 +16,15 @@ class Vehicle extends Model
     {
         return $this->hasMany(Tour::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($vehicle) {
+            $vehicle->provider_name = ucwords($vehicle->provider_name, " ");
+        });
+        static::updating(function ($vehicle) {
+            $vehicle->provider_name = ucwords($vehicle->provider_name, " ");
+        });
+    }
 }

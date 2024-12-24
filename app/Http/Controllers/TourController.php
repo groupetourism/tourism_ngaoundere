@@ -15,24 +15,22 @@ class TourController extends Controller
     use ApiResponse;
     public function index(ListRequest $request): JsonResponse
     {
-        $search = strtoupper($request->input('search'));
-        $query = Tour::query()->where('name', 'like',  "%{$search}%")->paginate(config('constants.PAGINATION_LIMIT'));
+//        $user = auth()->id();->where('user_id', $user)
+        $query = Tour::query()->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('tour', 2)]),
             $query->currentPage(), $query->lastPage(), TourResource::collection($query->items()));
     }
 
-    public function store(TourRequest $request): JsonResponse
-    {
-        $tour = $request->validated();
-        $tour['tour_picture'] = $this->updateUserFile($request, 'tour_picture', 'public/tour_pictures');
-        Tour::create($tour);
-        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('tour', 1)]));
-    }
-
     public function show(Tour $tour): JsonResponse
     {
-        return $this->respondWithSuccess(__('list of :title retrieved successfully', ['title'=>trans_choice('tour', 1)]), $tour->get());
+        return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('tour', 1)]), $tour);
+    }
+
+    public function store(TourRequest $request): JsonResponse
+    {
+        Tour::create($request->validated());
+        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('tour', 1)]));
     }
 
     public function update(TourRequest $request, Tour $tour): JsonResponse

@@ -32,8 +32,8 @@ class SiteSeeder extends Seeder
             "Sunday" => null,
         ]);
         DB::table('sites')->insert([
-            ['name' => 'Waterfall of Ngaoundere', 'description' => 'A beautiful waterfall located in the heart of Ngaoundere.', 'latitude' => 7.3215634, 'longitude' => 13.5793109, 'opening_hours' => $openingHours0, 'ticket_price' => 500, 'image_url' => 'https://fakeimg.pl/300/', 'contact_info' => 'hotel@example.com', 'website' => 'https://shutngaoundere.com'],
-            ['name' => 'Mount Ngaoundere', 'description' => 'A popular hiking destination with stunning views.', 'latitude' => 7.3215634, 'longitude' => 13.5793109, 'opening_hours' => $openingHours1, 'ticket_price' => 500, 'image_url' => 'https://fakeimg.pl/300/', 'contact_info' => 'hotel@example.com', 'website' => 'https://mountngaoundere.com'],
+            ['name' => 'Waterfall Of Ngaoundere', 'description' => 'A beautiful waterfall located in the heart of Ngaoundere.', 'latitude' => 7.3215634, 'longitude' => 13.5793109, 'opening_hours' => $openingHours0, 'ticket_price' => 500, 'image' => 'https://fakeimg.pl/300/', 'contact_info' => 'hotel@example.com', 'website' => 'https://shutngaoundere.com'],
+            ['name' => 'Mount Ngaoundere', 'description' => 'A popular hiking destination with stunning views.', 'latitude' => 7.3215634, 'longitude' => 13.5793109, 'opening_hours' => $openingHours1, 'ticket_price' => 500, 'image' => 'https://fakeimg.pl/300/', 'contact_info' => 'hotel@example.com', 'website' => 'https://mountngaoundere.com'],
         ]);
     }
 }

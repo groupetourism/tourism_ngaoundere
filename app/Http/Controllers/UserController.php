@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ListRequest;
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Traits\ApiResponse;
+use App\Mail\PasswordResetMail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -31,25 +38,26 @@ class UserController extends Controller
     }
     public function index(ListRequest $request): JsonResponse
     {
-        $search = strtoupper($request->input('search'));
-        $query = User::query()->where('name', 'like',  "%{$search}%")->paginate(config('constants.PAGINATION_LIMIT'));
+        $search = ucwords($request->input('search'), " ");
+        $query = User::query()->where('lastname', 'like',  "%{$search}%")->orWhere('firstname', 'like', "%{$search}%")
+            ->orderBy('lastname')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('user', 2)]),
             $query->currentPage(), $query->lastPage(), UserResource::collection($query->items()));
     }
 
-    public function store(UserRequest $request): JsonResponse
+    public function show(User $user): JsonResponse
+    {
+        return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('user', 1)]), $user);
+    }
+
+    public function store(StoreUserRequest $request): JsonResponse
     {
         User::create($request->validated());
         return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('user', 1)]));
     }
 
-    public function show(User $user): JsonResponse
-    {
-        return $this->respondWithSuccess(__('list of :title retrieved successfully', ['title'=>trans_choice('user', 1)]), $user->get());
-    }
-
-    public function update(UserRequest $request, User $user): JsonResponse
+    public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
         $user->update($request->validated());
         return $this->respondWithSuccess(__(':title updated successfully', ['title'=>trans_choice('user', 1)]));
@@ -59,5 +67,40 @@ class UserController extends Controller
     {
         $user->delete();
         return $this->respondWithSuccess(__(':title deleted successfully', ['title'=>trans_choice('user', 1)]));
+    }
+
+    //logout the user
+    public function resetPassword(Request $request): JsonResponse
+    {
+        $phone = $request->phone;
+        $user = User::where('phone', $phone)->firstOrFail();
+        $newPassword = "user_".Str::random(8);
+        $user->update([
+            'password' => bcrypt($newPassword)
+        ]);
+        Mail::to($user->email)->send(new PasswordResetMail($user, $newPassword));
+        return $this->respondWithSuccess("Mot de passe réinitialisé avec succes");
+    }
+
+    public function updateUserPassword(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|string|min:5|max:15',
+            'password' => 'required|string|min:5|max:15|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+        if ($validator->fails()){
+            return $this->respondFailedValidation($validator->errors());
+        }
+        $user = auth()->user();
+        if (!Hash::check($request->current_password, $user->password)) {
+            return $this->respondFailedValidation($validator->errors(), 'Le mot de passe courant est incorrect.');
+        }
+
+        $data = [];
+        $data['password'] = bcrypt($request->password);
+        $data['password_modified_at'] = Carbon::now();
+        $user->update($data);
+        return $this->respondWithSuccess("votre mot de passe a été mis a jour avec succes");
     }
 }

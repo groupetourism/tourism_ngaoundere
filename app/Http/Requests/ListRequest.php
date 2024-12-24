@@ -11,7 +11,7 @@ class ListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class ListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'search' => 'nullable|string|max:100',
+            'type' => 'nullable|numeric|in:1,2,3',
         ];
     }
 }

@@ -11,7 +11,7 @@ class ReservationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class ReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'required|numeric|exists:users,id',
+            'start_date' => 'required|date|after_or_equal:' . now(config('constants.TIME_ZONE'))->format('Y-m-d H:i:s'),
+            'end_date' => 'required|date|after:start_date',
+            'ticket_price' => 'numeric',
+            'status' => ['required', 'numeric', 'in:-1,0,1'],
         ];
     }
 }

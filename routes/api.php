@@ -1,6 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\AccommodationController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\TourController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,13 +22,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function (){
-    Route::apiResource('tourists', \App\Http\Controllers\UserController::class);
-    Route::apiResource('tourist-sites', \App\Http\Controllers\SiteController::class);
-    Route::apiResource('hotels', \App\Http\Controllers\HotelController::class);
-    Route::apiResource('rooms', \App\Http\Controllers\RoomController::class);
-    Route::apiResource('vehicles', \App\Http\Controllers\VehicleController::class);
-    Route::apiResource('events', \App\Http\Controllers\EventController::class);
-    Route::apiResource('tour-plans', \App\Http\Controllers\TourController::class);
+    Route::post('login', [UserController::class, 'login'])->name('login');
+    Route::post('logout/{user}', [UserController::class, 'logout']);
+    Route::put('users/reset-password', [UserController::class, 'resetPassword']);
+
+//    Route::middleware(['admin'])->group(function () {
+        Route::apiResource('users', UserController::class);
+        Route::apiResource('sites', SiteController::class);
+        Route::apiResource('vehicles', VehicleController::class);
+        Route::apiResource('accommodations', AccommodationController::class);
+        Route::apiResource('rooms', RoomController::class);
+        Route::apiResource('events', EventController::class);
+//    });
+
+//    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('tour-plans', TourController::class);
+        Route::apiResource('reservations', ReservationController::class);
+        //confirm reservation by admin
+//    });
 });
 
 

@@ -15,4 +15,15 @@ class Event extends Model
     {
         return $this->belongsTo(Site::class, 'site_id', 'id');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($event) {
+            $event->name = ucwords($event->name, " ");
+        });
+        static::updating(function ($event) {
+            $event->name = ucwords($event->name, " ");
+        });
+    }
 }

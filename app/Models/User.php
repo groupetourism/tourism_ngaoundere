@@ -14,11 +14,7 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
-    protected $hidden = ['password', 'remember_token',];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $hidden = ['password'];
 
     public function reservations(): HasMany
     {
@@ -28,5 +24,18 @@ class User extends Authenticatable
     public function tours(): HasMany
     {
         return $this->hasMany(Tour::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($user) {
+            $user->lastname = ucwords($user->lastname, " ");
+            $user->firstname = ucwords($user->firstname, " ");
+        });
+        static::updating(function ($user) {
+            $user->lastname = ucwords($user->lastname, " ");
+            $user->firstname = ucwords($user->firstname, " ");
+        });
     }
 }

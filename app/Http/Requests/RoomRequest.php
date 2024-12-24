@@ -11,7 +11,7 @@ class RoomRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class RoomRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'accommodation_id' => 'required|numeric|exists:accommodations,id',
+            'room_number' => 'required|string|max:100',
+            'capacity' => 'required|string|max:255',
+            'price_per_night' => 'required|numeric',
+            'is_available' => 'required|boolean',
+            'image' => 'file|mimes:pdf,jpg,png',
+
         ];
     }
 }

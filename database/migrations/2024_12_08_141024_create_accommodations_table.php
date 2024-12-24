@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', [1, 2, 3]);
             $table->string('name')->unique();
-            $table->string('description');
+            $table->longText('description');
             $table->double('latitude');
             $table->double('longitude');
 
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('balcony')->nullable();
             $table->boolean('parking')->nullable();
 
-            $table->string('image_url')->nullable();
+            $table->string('image')->nullable();
             $table->string('contact_info')->nullable();
             $table->string('website')->nullable();
             $table->timestamps();

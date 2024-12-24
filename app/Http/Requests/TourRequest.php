@@ -11,7 +11,7 @@ class TourRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class TourRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'nullable|numeric|exists:users,id',
+            'site_id' => 'required|numeric|exists:sites,id',
+            'accommodation_id' => 'nullable|numeric|exists:accommodations,id',
+            'vehicle_id' => 'required|numeric|exists:vehicles,id',
+            'start_date' => 'required|date|after_or_equal:' . now(config('constants.TIME_ZONE'))->format('Y-m-d H:i:s'),
+            'end_date' => 'required|date|after:start_date',
         ];
     }
 }

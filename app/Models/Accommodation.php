@@ -22,4 +22,15 @@ class Accommodation extends Model
     {
         return $this->hasMany(Tour::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($accommodation) {
+            $accommodation->name = ucwords($accommodation->name, " ");
+        });
+        static::updating(function ($accommodation) {
+            $accommodation->name = ucwords($accommodation->name, " ");
+        });
+    }
 }
