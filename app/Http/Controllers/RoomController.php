@@ -15,11 +15,10 @@ class RoomController extends Controller
 {
     use ApiResponse, FileTrait;
     public function index(ListRequest $request): JsonResponse
-    {//trei par prix, capacite
-        $search = ucwords($request->input('search'), " ");
+    {//tri par prix, capacite
         $hotel = $request->input('hotel');
         $available = $request->input('available');
-        $query = Room::query()->where('name', 'like',  "%{$search}%")->where('accommodation_id', $hotel)->where('is_available', $available)
+        $query = Room::query()->where('accommodation_id', $hotel)->where('is_available', $available)
             ->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('room', 2)]),

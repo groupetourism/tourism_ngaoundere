@@ -30,7 +30,6 @@ class StoreUserRequest extends FormRequest
             'email' => ['required', 'email', 'max:100', Rule::unique('users')->ignore($userId)],
             'password' => 'required|string|min:8|max:15|confirmed',
             'password_confirmation' => 'required',
-            'is_admin' => 'boolean',
         ];
     }
 }

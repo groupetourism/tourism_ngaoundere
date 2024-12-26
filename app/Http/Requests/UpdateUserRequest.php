@@ -25,10 +25,9 @@ class UpdateUserRequest extends FormRequest
         $userId = $this->route('user');
         return [
             'lastname' => 'string|max:100',
-            'firstname' => 'max:100',
+            'firstname' => 'string|max:100',
             'phone' => ['string', 'max:9', Rule::unique('users')->ignore($userId)],
             'email' => ['email', 'max:100', Rule::unique('users')->ignore($userId)],
-            'is_admin' => 'boolean',
         ];
     }
 }

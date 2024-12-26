@@ -24,6 +24,9 @@ class ListRequest extends FormRequest
         return [
             'search' => 'nullable|string|max:100',
             'type' => 'nullable|numeric|in:1,2,3',
+            'site' => 'nullable|numeric|exists:sites,id',
+            'hotel' => 'nullable|numeric|exists:accommodations,id',
+            'available' => 'nullable|boolean',
         ];
     }
 }

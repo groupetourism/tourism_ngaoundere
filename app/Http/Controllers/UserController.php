@@ -31,7 +31,7 @@ class UserController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         return $this->respondAuthenticated(__('successfully login'), $user->id, $token);
     }
-    function logout(User $user): JsonResponse
+    function logout(): JsonResponse
     {
         Auth::logout();
         return $this->respondWithSuccess("successfully logout");
@@ -53,7 +53,9 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request): JsonResponse
     {
-        User::create($request->validated());
+        $data = $request->except('password_confirmation');
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
         return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('user', 1)]));
     }
 
@@ -69,7 +71,6 @@ class UserController extends Controller
         return $this->respondWithSuccess(__(':title deleted successfully', ['title'=>trans_choice('user', 1)]));
     }
 
-    //logout the user
     public function resetPassword(Request $request): JsonResponse
     {
         $phone = $request->phone;
@@ -79,6 +80,7 @@ class UserController extends Controller
             'password' => bcrypt($newPassword)
         ]);
         Mail::to($user->email)->send(new PasswordResetMail($user, $newPassword));
+        Auth::logout();
         return $this->respondWithSuccess("Mot de passe réinitialisé avec succes");
     }
 
@@ -96,11 +98,10 @@ class UserController extends Controller
         if (!Hash::check($request->current_password, $user->password)) {
             return $this->respondFailedValidation($validator->errors(), 'Le mot de passe courant est incorrect.');
         }
-
-        $data = [];
-        $data['password'] = bcrypt($request->password);
-        $data['password_modified_at'] = Carbon::now();
-        $user->update($data);
+        $user->update([
+            'password' => bcrypt($request->password)
+        ]);
+        Auth::logout();
         return $this->respondWithSuccess("votre mot de passe a été mis a jour avec succes");
     }
 }

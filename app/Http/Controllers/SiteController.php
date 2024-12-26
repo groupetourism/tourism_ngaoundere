@@ -31,6 +31,7 @@ class SiteController extends Controller
     public function store(SiteRequest $request): JsonResponse
     {
         $data = $request->validated();
+        $data['opening_hours'] = json_encode($request->opening_hours);
         $data['image'] = $this->uploadFile($request, 'image', 'public/sites');
         Site::create($data);
         return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('site', 1)]));

@@ -23,21 +23,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (){
     Route::post('login', [UserController::class, 'login'])->name('login');
-    Route::post('logout/{user}', [UserController::class, 'logout']);
+    Route::post('logout', [UserController::class, 'logout']);
     Route::put('users/reset-password', [UserController::class, 'resetPassword']);
+    Route::apiResource('users', UserController::class)->only(['store']);
 
 //    Route::middleware(['admin'])->group(function () {
-        Route::apiResource('users', UserController::class);
         Route::apiResource('sites', SiteController::class);
         Route::apiResource('vehicles', VehicleController::class);
         Route::apiResource('accommodations', AccommodationController::class);
         Route::apiResource('rooms', RoomController::class);
         Route::apiResource('events', EventController::class);
+        Route::apiResource('users', UserController::class)->only(['list']);
 //    });
 
 //    Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('tour-plans', TourController::class);
         Route::apiResource('reservations', ReservationController::class);
+        Route::apiResource('users', UserController::class)->except(['store', 'list']);
         //confirm reservation by admin
 //    });
 });
