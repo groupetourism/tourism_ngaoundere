@@ -19,7 +19,7 @@ class VehicleController extends Controller
         $search = ucwords($request->input('search'), " ");
         $type = $request->input('type');
         $available = $request->input('available');
-        $query = Vehicle::query()->where('provider_name', 'like',  "%{$search}%")->where('type', $type)->where('is_available', $available)
+        $query = Vehicle::query()->where('provider_name', 'like',  "%{$search}%")->where(['type' => $type, 'is_available' => $available])
             ->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('vehicle', 2)]),

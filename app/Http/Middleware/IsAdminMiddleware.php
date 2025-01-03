@@ -18,9 +18,8 @@ class IsAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-        if (!$user->is_admin){
-            return $this->respondError('vous n\'avez pas le role et les permissions requise pour accéder a la resource', Response::HTTP_FORBIDDEN);
+        if (!auth()->check() || !auth()->user()->is_admin){
+            return $this->respondForbidden('vous n\'avez pas le role et les permissions requise pour accéder a la resource');
         }
         return $next($request);
     }

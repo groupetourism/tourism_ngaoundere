@@ -27,7 +27,7 @@ class UpdateUserRequest extends FormRequest
             'lastname' => 'string|max:100',
             'firstname' => 'string|max:100',
             'phone' => ['string', 'max:9', Rule::unique('users')->ignore($userId)],
-            'email' => ['email', 'max:100', Rule::unique('users')->ignore($userId)],
+            'email' => ['email', Rule::unique('users')->ignore($userId)],
         ];
     }
 }

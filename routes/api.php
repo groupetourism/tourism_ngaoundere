@@ -21,28 +21,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1')->group(function (){
+Route::prefix('v1')->group(function () {
     Route::post('login', [UserController::class, 'login'])->name('login');
-    Route::post('logout', [UserController::class, 'logout']);
-    Route::put('users/reset-password', [UserController::class, 'resetPassword']);
+    Route::post('logout', [UserController::class, 'logout'])->name('logout');
+    Route::put('users/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
     Route::apiResource('users', UserController::class)->only(['store']);
 
-//    Route::middleware(['admin'])->group(function () {
-        Route::apiResource('sites', SiteController::class);
-        Route::apiResource('vehicles', VehicleController::class);
-        Route::apiResource('accommodations', AccommodationController::class);
-        Route::apiResource('rooms', RoomController::class);
-        Route::apiResource('events', EventController::class);
-        Route::apiResource('users', UserController::class)->only(['list']);
-//    });
+    Route::group(['middleware' => 'auth:sanctum'], function () { // mine and others info or  my own only
+        Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+            Route::apiResource('sites', SiteController::class)->only(['store', 'update', 'destroy']);
+            Route::apiResource('vehicles', VehicleController::class)->only(['store', 'update', 'destroy']);
+            Route::apiResource('accommodations', AccommodationController::class)->only(['store', 'update', 'destroy']);
+            Route::apiResource('rooms', RoomController::class)->only(['store', 'update', 'destroy']);
+            Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy']);
+            Route::apiResource('users', UserController::class)->only(['index']);
+            //confirm reservation by admin
+        });
+        Route::apiResource('sites', SiteController::class)->only(['index', 'show']);
+        Route::apiResource('vehicles', VehicleController::class)->only(['index', 'show']);
+        Route::apiResource('accommodations', AccommodationController::class)->only(['index', 'show']);
+        Route::apiResource('rooms', RoomController::class)->only(['index', 'show']);
+        Route::apiResource('events', EventController::class)->only(['index', 'show']);
 
-//    Route::middleware('auth:sanctum')->group(function () {
-        Route::apiResource('tour-plans', TourController::class);
-        Route::apiResource('reservations', ReservationController::class);
-        Route::apiResource('users', UserController::class)->except(['store', 'list']);
-        //confirm reservation by admin
-//    });
+        Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');//show only mine but admin can show for all, edit & delete only mine
+        Route::put('users', [UserController::class, 'edit'])->name('users.edit');
+        Route::delete('users', [UserController::class, 'delete'])->name('users.destroy');
+        Route::apiResource('tour-plans', TourController::class)->only(['index', 'show']);//index & show only mine but admin can index and show for all, edit & delete only mine
+        Route::post('tour-plans', [TourController::class, 'store'])->name('tour-plans.store');
+        Route::put('tour-plans', [TourController::class, 'edit'])->name('tour-plans.edit');
+        Route::delete('tour-plans', [TourController::class, 'delete'])->name('tour-plans.destroy');
+        Route::apiResource('reservations', ReservationController::class)->only(['index', 'show']);//index & show only mine but admin can index and show for all, edit & delete only mine
+        Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
+        Route::put('reservations', [ReservationController::class, 'edit'])->name('reservations.edit');
+        Route::delete('reservations', [ReservationController::class, 'delete'])->name('reservations.destroy');
+        Route::put('users/update-password', [UserController::class, 'updatePassword'])->name('update-password');
+    });
 });
-
-
-//Route::apiResource('tour-schedules', TourScheduleController::class);

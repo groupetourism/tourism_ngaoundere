@@ -48,6 +48,8 @@ class UserController extends Controller
 
     public function show(User $user): JsonResponse
     {
+        if (!auth()->user()->is_admin && $user !== auth()->id())
+            return $this->respondForbidden('vous n\'avez pas le role et les permissions requise pour accéder a la resource');
         return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('user', 1)]), $user);
     }
 
@@ -59,14 +61,16 @@ class UserController extends Controller
         return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('user', 1)]));
     }
 
-    public function update(UpdateUserRequest $request, User $user): JsonResponse
+    public function update(UpdateUserRequest $request): JsonResponse
     {
+        $user = auth()->user();
         $user->update($request->validated());
         return $this->respondWithSuccess(__(':title updated successfully', ['title'=>trans_choice('user', 1)]));
     }
 
-    public function destroy(User $user): JsonResponse
+    public function destroy(): JsonResponse
     {
+        $user = auth()->user();
         $user->delete();
         return $this->respondWithSuccess(__(':title deleted successfully', ['title'=>trans_choice('user', 1)]));
     }
@@ -80,11 +84,11 @@ class UserController extends Controller
             'password' => bcrypt($newPassword)
         ]);
         Mail::to($user->email)->send(new PasswordResetMail($user, $newPassword));
-        Auth::logout();
+        auth()->user() ?: $request->user()->currentAccessToken()->delete();
         return $this->respondWithSuccess("Mot de passe réinitialisé avec succes");
     }
 
-    public function updateUserPassword(Request $request): JsonResponse
+    public function updatePassword(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'current_password' => 'required|string|min:5|max:15',
@@ -101,7 +105,7 @@ class UserController extends Controller
         $user->update([
             'password' => bcrypt($request->password)
         ]);
-        Auth::logout();
+        $request->user()->currentAccessToken()->delete();
         return $this->respondWithSuccess("votre mot de passe a été mis a jour avec succes");
     }
 }

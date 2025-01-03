@@ -18,8 +18,7 @@ class RoomController extends Controller
     {//tri par prix, capacite
         $hotel = $request->input('hotel');
         $available = $request->input('available');
-        $query = Room::query()->where('accommodation_id', $hotel)->where('is_available', $available)
-            ->paginate(config('constants.PAGINATION_LIMIT'));
+        $query = Room::query()->where(['accommodation_id' => $hotel, 'is_available' => $available])->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('room', 2)]),
             $query->currentPage(), $query->lastPage(), RoomResource::collection($query->items()));
