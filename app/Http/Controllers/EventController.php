@@ -17,12 +17,14 @@ class EventController extends Controller
     public function index(ListRequest $request): JsonResponse
     {//trie pas prix
         $search = ucwords($request->input('search'), " ");
-        $site = $request->input('site');
-        $query = Event::query()->where('name', 'like',  "%{$search}%")->where('site_id', $site)
-            ->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
+        $query = Event::query()->when($request->search, function ($q) use ($search){
+            $q->where('name', 'like',  "%{$search}%");
+        })->when($request->site, function ($q) use ($request){
+            $q->where('site_id', $request->site);
+        })->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('event', 2)]),
-            $query->currentPage(), $query->lastPage(), EventResource::collection($query->items()));
+            $query, EventResource::collection($query->items()));
     }
 
     public function show(Event $event): JsonResponse

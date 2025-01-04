@@ -6,6 +6,7 @@ namespace App\Http\Traits;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,14 +22,27 @@ trait ApiResponse
      * @param mixed $data
      * @return JsonResponse
      */
-    public function respondSuccessWithPaginate(string $statusMessage, int $currentPage, int $lastPage, mixed $data, int $statusCode = 200): JsonResponse
+    public function respondSuccessWithPaginate(string $statusMessage, LengthAwarePaginator $meta, mixed $data, int $statusCode = 200): JsonResponse
     {
         return response()->json([
             'status_code' => $statusCode,
             'status_message' => $statusMessage,
-            'current_page' => $currentPage,
-            'last_page' => $lastPage,
             'data' => $data,
+            'meta' => [
+                'current_page' => $meta->currentPage(),
+                'last_page' => $meta->lastPage(),
+                'per_page' => $meta->perPage(),
+                'total' => $meta->total(),
+                'from' => $meta->firstItem(),
+                'to' => $meta->lastItem(),
+                'links' => [
+                    'first' => $meta->url(1),
+                    'last' => $meta->url($meta->lastPage()),
+                    'prev' => $meta->previousPageUrl(),
+                    'next' => $meta->nextPageUrl(),
+                    'current' => $meta->url($meta->currentPage()),
+                ],
+            ],
         ]);
     }
 

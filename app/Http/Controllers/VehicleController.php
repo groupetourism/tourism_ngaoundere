@@ -17,13 +17,16 @@ class VehicleController extends Controller
     public function index(ListRequest $request): JsonResponse
     {//trie pas prix, num seat
         $search = ucwords($request->input('search'), " ");
-        $type = $request->input('type');
-        $available = $request->input('available');
-        $query = Vehicle::query()->where('provider_name', 'like',  "%{$search}%")->where(['type' => $type, 'is_available' => $available])
-            ->paginate(config('constants.PAGINATION_LIMIT'));
+        $query = Vehicle::query()->when($request->search, function ($q) use ($search){
+                $q->where('provider_name', 'like',  "%{$search}%");
+            })->when($request->type, function ($q) use ($request){
+            $q->where('type', $request->type);
+        })->when($request->available, function ($q) use ($request){
+            $q->where('is_available', $request->available);
+        })->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('vehicle', 2)]),
-            $query->currentPage(), $query->lastPage(), VehicleResource::collection($query->items()));
+            $query, VehicleResource::collection($query->items()));
     }
     public function show(vehicle $vehicle): JsonResponse
     {

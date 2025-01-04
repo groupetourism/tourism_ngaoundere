@@ -17,12 +17,14 @@ class AccommodationController extends Controller
     public function index(ListRequest $request): JsonResponse
     {//trie par prix, balcon num room si residence, stars, parking si hotel et resid. orderby exclud null
         $search = ucwords($request->input('search'), " ");
-        $type = $request->input('type');
-        $query = Accommodation::query()->where('name', 'like',  "%{$search}%")->where('type', $type)
-            ->orderBy('number_of_stars', 'desc')->paginate(config('constants.PAGINATION_LIMIT'));
+        $query = Accommodation::query()->when($request->search, function ($q) use ($search){
+            $q->where('name', 'like',  "%{$search}%");
+        })->when($request->type, function ($q) use ($request){
+            $q->where('type', $request->type);
+        })->orderBy('number_of_stars', 'desc')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('accommodation', 2)]),
-            $query->currentPage(), $query->lastPage(), AccommodationResource::collection($query->items()));
+            $query, AccommodationResource::collection($query->items()));
     }
 
     public function show(Accommodation $accommodation): JsonResponse

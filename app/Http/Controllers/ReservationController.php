@@ -15,16 +15,23 @@ class ReservationController extends Controller
     use ApiResponse;
     public function index(ListRequest $request): JsonResponse
     {
-        $status = $request->input('status');
-        $user = $request->input('user');
-        if (!auth()->user()->is_admin)
-            if ($user !== auth()->id())
+        if (!auth()->user()->is_admin){
+            if (!empty($request->user) && (int) $request->user !== auth()->id())
                 return $this->respondForbidden('vous n\'avez pas le role et les permissions requise pour accéder a la resource');
-            $query = auth()->user()->reservations->where(['status' => $status, 'user_id' => $user])->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
-        $query = Reservation::query()->where(['status' => $status, 'user_id' => $user])->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
-
+            $query = auth()->user()->reservations()->when($request->status, function ($q) use ($request){
+                $q->where('status', $request->status);
+            })->when($request->user, function ($q) use ($request){
+                $q->where('user_id', $request->user);
+            })->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
+        }else{
+            $query = Reservation::query()->when($request->status, function ($q) use ($request){
+                $q->where('status', $request->status);
+            })->when($request->user, function ($q) use ($request){
+                $q->where('user_id', $request->user);
+            })->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
+        }
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('reservation', 2)]),
-            $query->currentPage(), $query->lastPage(), ReservationResource::collection($query->items()));
+            $query, ReservationResource::collection($query->items()));
     }
 
     public function show(Reservation $reservation): JsonResponse

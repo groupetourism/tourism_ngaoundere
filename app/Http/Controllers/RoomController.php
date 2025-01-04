@@ -16,12 +16,14 @@ class RoomController extends Controller
     use ApiResponse, FileTrait;
     public function index(ListRequest $request): JsonResponse
     {//tri par prix, capacite
-        $hotel = $request->input('hotel');
-        $available = $request->input('available');
-        $query = Room::query()->where(['accommodation_id' => $hotel, 'is_available' => $available])->paginate(config('constants.PAGINATION_LIMIT'));
+        $query = Room::query()->when($request->hotel, function ($q) use ($request){
+            $q->where('accommodation_id', $request->hotel);
+        })->when($request->available, function ($q) use ($request){
+            $q->where('is_available', $request->available);
+        })->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('room', 2)]),
-            $query->currentPage(), $query->lastPage(), RoomResource::collection($query->items()));
+            $query, RoomResource::collection($query->items()));
     }
 
     public function show(Room $room): JsonResponse

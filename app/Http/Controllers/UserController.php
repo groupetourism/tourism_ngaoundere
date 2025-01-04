@@ -39,11 +39,12 @@ class UserController extends Controller
     public function index(ListRequest $request): JsonResponse
     {
         $search = ucwords($request->input('search'), " ");
-        $query = User::query()->where('lastname', 'like',  "%{$search}%")->orWhere('firstname', 'like', "%{$search}%")
-            ->orderBy('lastname')->paginate(config('constants.PAGINATION_LIMIT'));
+        $query = User::query()->when($request->search, function ($q) use ($search){
+            $q->where('lastname', 'like',  "%{$search}%")->orWhere('firstname', 'like', "%{$search}%");
+        })->orderBy('lastname')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('user', 2)]),
-            $query->currentPage(), $query->lastPage(), UserResource::collection($query->items()));
+            $query, UserResource::collection($query->items()));
     }
 
     public function show(User $user): JsonResponse
