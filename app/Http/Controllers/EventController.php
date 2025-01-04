@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ListRequest;
 use App\Http\Requests\EventRequest;
+use App\Http\Requests\ListRequest;
 use App\Http\Resources\EventResource;
 use App\Http\Traits\ApiResponse;
 use App\Http\Traits\FileTrait;
 use App\Models\Event;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {

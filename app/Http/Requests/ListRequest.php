@@ -23,7 +23,10 @@ class ListRequest extends FormRequest
     {
         return [
             'search' => 'nullable|string|max:100',
-            'type' => 'nullable|numeric|in:1,2,3',
+            'type_accommodation' => 'nullable|numeric|in:1,2,3',
+            'type_vehicle' => 'nullable|numeric|in:1,2,3',
+            'status' => 'nullable|numeric|in:-1,0,1',
+            'user' => 'nullable|numeric|exists:users,id',
             'site' => 'nullable|numeric|exists:sites,id',
             'hotel' => 'nullable|numeric|exists:accommodations,id',
             'available' => 'nullable|boolean',

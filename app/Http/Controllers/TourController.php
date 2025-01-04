@@ -8,7 +8,6 @@ use App\Http\Resources\TourResource;
 use App\Http\Traits\ApiResponse;
 use App\Models\Tour;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class TourController extends Controller
 {

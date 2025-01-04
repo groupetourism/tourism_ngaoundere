@@ -9,7 +9,6 @@ use App\Http\Traits\ApiResponse;
 use App\Http\Traits\FileTrait;
 use App\Models\Room;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {

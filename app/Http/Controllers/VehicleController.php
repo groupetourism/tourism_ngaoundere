@@ -9,7 +9,6 @@ use App\Http\Traits\ApiResponse;
 use App\Http\Traits\FileTrait;
 use App\Models\Vehicle;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
@@ -19,8 +18,8 @@ class VehicleController extends Controller
         $search = ucwords($request->input('search'), " ");
         $query = Vehicle::query()->when($request->search, function ($q) use ($search){
                 $q->where('provider_name', 'like',  "%{$search}%");
-            })->when($request->type, function ($q) use ($request){
-            $q->where('type', $request->type);
+            })->when($request->type_vehicle, function ($q) use ($request){
+            $q->where('type', $request->type_vehicle);
         })->when($request->available, function ($q) use ($request){
             $q->where('is_available', $request->available);
         })->paginate(config('constants.PAGINATION_LIMIT'));

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ListRequest;
 use App\Http\Requests\AccommodationRequest;
+use App\Http\Requests\ListRequest;
 use App\Http\Resources\AccommodationResource;
 use App\Http\Traits\ApiResponse;
 use App\Http\Traits\FileTrait;
 use App\Models\Accommodation;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class AccommodationController extends Controller
 {
@@ -19,8 +18,8 @@ class AccommodationController extends Controller
         $search = ucwords($request->input('search'), " ");
         $query = Accommodation::query()->when($request->search, function ($q) use ($search){
             $q->where('name', 'like',  "%{$search}%");
-        })->when($request->type, function ($q) use ($request){
-            $q->where('type', $request->type);
+        })->when($request->type_accommodation, function ($q) use ($request){
+            $q->where('type', $request->type_accommodation);
         })->orderBy('number_of_stars', 'desc')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('accommodation', 2)]),

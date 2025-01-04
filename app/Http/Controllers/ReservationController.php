@@ -8,7 +8,6 @@ use App\Http\Resources\ReservationResource;
 use App\Http\Traits\ApiResponse;
 use App\Models\Reservation;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
