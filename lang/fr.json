@@ -16,6 +16,7 @@
     ":title deleted successfully": ":title supprimé avec succès",
     ":title retrieved successfully": ":title récupéré avec succès",
     "list of :title retrieved successfully": "liste des :title récupérés avec succès",
+    ":title cancelled successfully": ":title annulé avec succès",
 
     "successfully login": "connexion réussi",
     "successfully logout": "déconnexion réussi",

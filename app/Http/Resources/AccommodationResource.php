@@ -30,6 +30,7 @@ class AccommodationResource extends JsonResource
             'number_of_shower' => $this->number_of_shower,
             'balcony' => $this->balcony,
             'parking' => $this->parking,
+            'is_available' => $this->is_available,
             'image' => $this->image,
             'contact_info' => $this->contact_info,
             'website' => $this->website,

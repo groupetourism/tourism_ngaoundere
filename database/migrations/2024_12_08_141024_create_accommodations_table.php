@@ -28,6 +28,7 @@ return new class extends Migration
             $table->integer('number_of_shower')->nullable();
             $table->boolean('balcony')->nullable();
             $table->boolean('parking')->nullable();
+            $table->boolean('is_available')->nullable();
 
             $table->string('image')->nullable();
             $table->string('contact_info')->nullable();

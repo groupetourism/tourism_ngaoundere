@@ -52,7 +52,6 @@ Route::prefix('v1')->group(function () {
         Route::delete('tour-plans', [TourController::class, 'delete'])->name('tour-plans.destroy');
         Route::apiResource('reservations', ReservationController::class)->only(['index', 'show']);//index & show only mine but admin can index and show for all, edit & delete only mine
         Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
-        Route::put('reservations', [ReservationController::class, 'edit'])->name('reservations.edit');
         Route::delete('reservations', [ReservationController::class, 'delete'])->name('reservations.destroy');
         Route::put('users/update-password', [UserController::class, 'updatePassword'])->name('update-password');
     });

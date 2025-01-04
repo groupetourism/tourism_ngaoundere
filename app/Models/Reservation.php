@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Reservation extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['status', 'ticket_price', 'user_id'];
     public function reservable(): MorphTo
     {
         return $this->morphTo();

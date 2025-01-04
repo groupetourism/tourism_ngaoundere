@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->morphs('reservable');
             $table->foreignId('user_id')->constrained();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->float('total_price');
-            $table->enum('status', [0, 1, -1]);
-            $table->morphs('reservable');
+            $table->enum('status', [0, 1, -1])->default(1); //0=expiré, 1=active, -1=annulé
             $table->timestamps();
             //ne pas faire une reservation pr la mm periode pr 1 mm type de modèle reservable par un mm user
         });

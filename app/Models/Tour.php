@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tour extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['user_id'];
 
     public function user(): BelongsTo
     {

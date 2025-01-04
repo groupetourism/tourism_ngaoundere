@@ -22,11 +22,13 @@ class ReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|numeric|exists:users,id',
+            'reservable_type' => 'required|string|in:App\Models\Accommodation,App\Models\Vehicle,App\Models\Room', //if it is accommodation then id should for the one whose type is in [2]
+            'reservable_id' => 'required|numeric',
             'start_date' => 'required|date|after_or_equal:' . now(config('constants.TIME_ZONE'))->format('Y-m-d H:i:s'),
             'end_date' => 'required|date|after:start_date',
-            'ticket_price' => 'numeric',
-            'status' => ['required', 'numeric', 'in:-1,0,1'],
+//            'ticket_price' => 'numeric',
+//            'status' => ['required', 'numeric', 'in:-1,0,1'],
+
         ];
     }
 }

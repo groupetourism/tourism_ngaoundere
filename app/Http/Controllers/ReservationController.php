@@ -6,8 +6,13 @@ use App\Http\Requests\ListRequest;
 use App\Http\Requests\ReservationRequest;
 use App\Http\Resources\ReservationResource;
 use App\Http\Traits\ApiResponse;
+use App\Models\Accommodation;
 use App\Models\Reservation;
+use App\Models\Room;
+use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -42,19 +47,82 @@ class ReservationController extends Controller
 
     public function store(ReservationRequest $request): JsonResponse
     {
-        Reservation::create($request->validated());
-        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('reservation', 1)]));
-    }
+        //take request validated, verify if reservabletype(vehicle), reservabletype(accommodation) of type 2,  reservabletype(room) is available
+        // calculate total_price based on reservabletype(vehicle) price_per_hour, reservabletype(room) price_per_night
+        //calculate total_price based on reservabletype(accommodation) where type=2 price_per_day
+        //then store. state become 1 and is_available become 0
+        //normaly reservation and when end date arrive so is_available become 1 and state become 0 (expiré)
+        $data = $request->validated();
+        $startDate = Carbon::parse($request->start_date, config('constants.TIME_ZONE'))->startOfDay();
+        $endDate = Carbon::parse($request->end_date, config('constants.TIME_ZONE'));
+//        DB::transaction(function () use ($request, $data, $startDate, $endDate) {
+            if ($request->reservable_type === 'App\Models\Room') {
+                $room = Room::findOrFail($request->reservable_id);
+                if (!$room->is_available) {
+                    return $this->respondError('chambre indisponible');
+                }
+                $numberOfNights = $endDate->diffInDays($startDate);
+                $data['total_price'] = $room->price_per_night * $numberOfNights;
+                $room->is_available = false;
+                $room->save();
+            }
+            if ($request->reservable_type === 'App\Models\Vehicle') {
+                $vehicle = Vehicle::findOrFail($request->reservable_id);
+                if (!$vehicle->is_available) {
+                    return $this->respondError('Vehicule indisponible');
+                }
+//                $from = Carbon::parse($request->start_date, config('constants.TIME_ZONE'));
+//                $to = Carbon::parse($request->end_date, config('constants.TIME_ZONE'));
+                $numberOfHours = $endDate->diffInHours($startDate);
+                $data['total_price'] = $vehicle->price_per_hour * $numberOfHours;
+                $vehicle->is_available = false;
+                $vehicle->save();
+            }
+            if ($request->reservable_type === 'App\Models\Accommodation') {
+                $accommodation = Accommodation::findOrFail($request->reservable_id);
+                if ($accommodation) {
+                    if (!in_array($accommodation->type, [config('constants.RESIDENCE')])) {
+                        return $this->respondError("Ce type d'accommmodation n'est pas reservable");
+                    }
+                    if ($accommodation->is_available == 0) {
+                        return $this->respondError('hebergement indisponible');
+                    }
+                }
+                $numberOfDays = $endDate->diffInDays($startDate); dd($numberOfDays);
+                $data['total_price'] = $accommodation->price_per_day * $numberOfDays;
+                $accommodation->is_available = false;
+                $accommodation->save();
+            }
+            auth()->user()->reservations()->create($data);
+//        });
 
-    public function update(ReservationRequest $request, Reservation $reservation): JsonResponse
-    {
-        $reservation->update($request->validated());
-        return $this->respondWithSuccess(__(':title updated successfully', ['title'=>trans_choice('reservation', 1)]));
+        return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('reservation', 1)]));
     }
 
     public function destroy(Reservation $reservation): JsonResponse
     {
-        $reservation->delete();
-        return $this->respondWithSuccess(__(':title deleted successfully', ['title'=>trans_choice('reservation', 1)]));
+        //verify the reservation is active then change to -1 then make the reservable available
+        if ($reservation->status !== 1)
+            return $this->respondError("On n'annule que les reservations active");
+        DB::transaction(function () use ($reservation) {
+            $reservation->status = -1;
+            $reservation->save();
+            if ($reservation->reservable_type === 'App\Models\Room') {
+                $room = Room::find($reservation->reservable_id);
+                $room->is_available = false;
+                $room->save();
+            }
+            if ($reservation->reservable_type === 'App\Models\Vehicle') {
+                $vehicle = Vehicle::findOrFail($reservation->reservable_id);
+                $vehicle->is_available = false;
+                $vehicle->save();
+            }
+            if ($reservation->reservable_type === 'App\Models\Accommodation') {
+                $accommodation = Accommodation::findOrFail($reservation->reservable_id);
+                $accommodation->is_available = false;
+                $accommodation->save();
+            }
+        });
+        return $this->respondWithSuccess(__(':title cancelled successfully', ['title'=>trans_choice('reservation', 1)]));
     }
 }

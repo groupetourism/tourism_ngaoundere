@@ -7,6 +7,7 @@ use App\Http\Requests\TourRequest;
 use App\Http\Resources\TourResource;
 use App\Http\Traits\ApiResponse;
 use App\Models\Tour;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 
 class TourController extends Controller
@@ -36,8 +37,8 @@ class TourController extends Controller
     }
 
     public function store(TourRequest $request): JsonResponse
-    {
-        Tour::create($request->validated());
+    {// for start and enddate, time is not a most so use $start = Carbon::parse($request->from, config('constants.TIME_ZONE'))->startOfDay() //endOfDay samefor events
+        auth()->user()->tours()->create($request->validated());
         return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('tour', 1)]));
     }
 

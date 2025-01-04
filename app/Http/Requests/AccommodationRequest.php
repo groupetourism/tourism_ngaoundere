@@ -51,6 +51,7 @@ class AccommodationRequest extends FormRequest
                     'number_of_shower' => 'numeric',
                     'balcony' => 'boolean',
                     'parking' => 'boolean',
+                    'is_available' => 'required|boolean',
                 ]);
                 break;
             case 3:
