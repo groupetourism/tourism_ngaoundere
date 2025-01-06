@@ -352,7 +352,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LADACO',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -415,7 +415,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE AL HILAL',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -436,7 +436,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LA CITE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -457,7 +457,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE L’ETOILE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -478,7 +478,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE APHRODITE I',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -499,7 +499,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LA CONCORDE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -520,7 +520,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE REFUGE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -541,7 +541,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE PRESTIGE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -562,7 +562,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE WEE GARA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -583,7 +583,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE TOUJOURS PROPRE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -604,7 +604,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 1,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE GIRAFE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -646,7 +646,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE ADAMAOUA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -667,7 +667,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE BEAU SEJOUR',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -688,7 +688,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE CALYPSO',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -709,7 +709,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE DJEREM',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -730,7 +730,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE LIDO',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -751,7 +751,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE NOUVELLE VIE TRANQUILLE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -772,7 +772,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE TEUFANG',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -793,7 +793,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE AMBASSADE DU NDE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -814,7 +814,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE CALIFORNIA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -835,7 +835,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE CHATEAU',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -856,7 +856,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE MODESTIE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -877,7 +877,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE MONT NGAOUNDAL',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -898,7 +898,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LA VICTOIRE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -919,7 +919,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE INTER',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -982,7 +982,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE Le Transitaire',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1003,7 +1003,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 3,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE Nid d’Or',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1024,7 +1024,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE MANDELA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1045,7 +1045,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE JEUNESSE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1066,7 +1066,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE SAFARI',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1087,7 +1087,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE CENTRE SOCIO',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1108,7 +1108,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LA CHALEUR',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1129,7 +1129,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE BIEN EST BIEN',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1150,7 +1150,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE RENAISSANCE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1171,7 +1171,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE DA’TOU',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1192,7 +1192,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE SILVANO',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1213,7 +1213,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE DU PEUPLE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1234,7 +1234,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE DE L’ESPOIR',
                 'description' => '',
                 'latitude' => 7.3215635,
@@ -1255,7 +1255,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE SAMBA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1276,7 +1276,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 4,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE AMSANOU',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1297,7 +1297,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LA POSADA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1318,7 +1318,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE DEMOCRATIQUE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1339,7 +1339,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE ESCALE DU NORD',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1360,7 +1360,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE ETOILE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1381,7 +1381,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE KIMI',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1402,7 +1402,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE NYAMBOYA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1423,7 +1423,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE RADIAN',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1444,7 +1444,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE SARE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1465,7 +1465,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE MBOUDA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1486,7 +1486,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE MICHEL',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1507,7 +1507,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE COMPLEXE SEM SEM',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1528,7 +1528,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE COMPLEXE FATI',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1549,7 +1549,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE DE L’ESPOIR',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1570,7 +1570,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE MEMAL',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1591,7 +1591,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE AMPOULE ROUGE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1612,7 +1612,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE PARADIS',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1633,7 +1633,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE KOUZA',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1654,7 +1654,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE PAPA LEON',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1675,7 +1675,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 2,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'NOUVELLE AUBERGE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1696,7 +1696,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 5,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE MUNICIPALE',
                 'description' => '',
                 'latitude' => 7.3215635,
@@ -1717,7 +1717,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 5,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE DE LA VALLEE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1738,7 +1738,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 5,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE LE REPOSOIR',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1759,7 +1759,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 5,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE MUNICIPALE',
                 'description' => '',
                 'latitude' => 7.3215634,
@@ -1801,7 +1801,7 @@ class AccommodationSeeder extends Seeder
             ],
             [
                 'department_id' => 5,
-                'type' => 1,
+                'type' => 6,
                 'name' => 'AUBERGE ESCALE',
                 'description' => '',
                 'latitude' => 7.3215634,
