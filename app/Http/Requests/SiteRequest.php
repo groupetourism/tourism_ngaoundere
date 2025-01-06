@@ -24,11 +24,16 @@ class SiteRequest extends FormRequest
     {
         $siteId = $this->route('accommodation');
         return [
+            'department_id' => 'required|numeric|exists:departments,id',
             'name' => ['required', 'string', 'max:100', Rule::unique('sites')->ignore($siteId)],
             'description' => 'string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'opening_hours' => 'required',
+            'visite_periode' => 'required|string',
+            'access_means' => 'required|string',
+            'offered_service' => 'string',
+            'cultural_info' => 'string',
+//            'opening_hours' => 'required',
             'ticket_price' => 'numeric',
             'image' => 'file|mimes:pdf,jpg,png',
             'contact_info' => 'string|max:100',

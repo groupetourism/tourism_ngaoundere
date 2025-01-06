@@ -46,11 +46,6 @@ class UpdateExpiredReservationsStates extends Command
                     $vehicle->is_available = false;
                     $vehicle->save();
                 }
-                if ($reservation->reservable_type === 'App\Models\Accommodation') {
-                    $accommodation = Accommodation::findOrFail($reservation->reservable_id);
-                    $accommodation->is_available = false;
-                    $accommodation->save();
-                }
             });
         }
         $this->info('Etats des reservations Mis à jour.');

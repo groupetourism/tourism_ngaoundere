@@ -23,9 +23,9 @@ class RoomRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'accommodation_id' => ['required', 'numeric', Rule::exists('accommodations', 'id')->where(function ($query) {$query->where('type', 1);})],
+            'accommodation_id' => ['required', 'numeric', Rule::exists('accommodations', 'id')->where(function ($query) {$query->where('type', 1);})], //whereIn id for auberge, motel
             'room_number' => 'required|string|max:100',
-            'capacity' => 'required|string|max:255',
+            'capacity' => 'required|integer|max:255',
             'price_per_night' => 'required|numeric',
             'is_available' => 'required|boolean',
             'image' => 'file|mimes:pdf,jpg,png',

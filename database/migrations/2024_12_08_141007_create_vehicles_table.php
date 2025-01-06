@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->constrained();
             $table->enum('type', [1, 2, 3]);
             $table->string('license_plate')->unique();
             $table->string('provider_name');

@@ -6,9 +6,11 @@ use App\Http\Requests\ListRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\DepartmentResource;
 use App\Http\Resources\UserResource;
 use App\Http\Traits\ApiResponse;
 use App\Mail\PasswordResetMail;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -107,5 +109,11 @@ class UserController extends Controller
         ]);
         $request->user()->currentAccessToken()->delete();
         return $this->respondWithSuccess("votre mot de passe a été mis a jour avec succes");
+    }
+
+    public function listDepartments(): JsonResponse{
+        $query = Department::query()->with('headquarters')->paginate(config('constants.PAGINATION_LIMIT'));
+        return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('departments', 2)]),
+            $query, DepartmentResource::collection($query->items()));
     }
 }

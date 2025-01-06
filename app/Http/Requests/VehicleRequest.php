@@ -24,6 +24,7 @@ class VehicleRequest extends FormRequest
     {
         $vehicleId = $this->route('accommodation');
         return [
+            'department_id' => 'required|numeric|exists:departments,id',
             'type' => ['required', 'numeric', 'in:1,2,3'],
             'license_plate' => ['required', 'string', 'max:100', Rule::unique('vehicles')->ignore($vehicleId)],
             'provider_name' => 'required|string|max:100',

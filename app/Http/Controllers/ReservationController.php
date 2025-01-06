@@ -49,7 +49,6 @@ class ReservationController extends Controller
     {
         //take request validated, verify if reservabletype(vehicle), reservabletype(accommodation) of type 2,  reservabletype(room) is available
         // calculate total_price based on reservabletype(vehicle) price_per_hour, reservabletype(room) price_per_night
-        //calculate total_price based on reservabletype(accommodation) where type=2 price_per_day
         //then store. state become 1 and is_available become 0
         //normaly reservation and when end date arrive so is_available become 1 and state become 0 (expiré)
         $data = $request->validated();
@@ -78,21 +77,6 @@ class ReservationController extends Controller
                 $vehicle->is_available = false;
                 $vehicle->save();
             }
-            if ($request->reservable_type === 'App\Models\Accommodation') {
-                $accommodation = Accommodation::findOrFail($request->reservable_id);
-                if ($accommodation) {
-                    if (!in_array($accommodation->type, [config('constants.RESIDENCE')])) {
-                        return $this->respondError("Ce type d'accommmodation n'est pas reservable");
-                    }
-                    if ($accommodation->is_available == 0) {
-                        return $this->respondError('hebergement indisponible');
-                    }
-                }
-                $numberOfDays = $endDate->diffInDays($startDate); dd($numberOfDays);
-                $data['total_price'] = $accommodation->price_per_day * $numberOfDays;
-                $accommodation->is_available = false;
-                $accommodation->save();
-            }
             auth()->user()->reservations()->create($data);
 //        });
 
@@ -116,11 +100,6 @@ class ReservationController extends Controller
                 $vehicle = Vehicle::findOrFail($reservation->reservable_id);
                 $vehicle->is_available = false;
                 $vehicle->save();
-            }
-            if ($reservation->reservable_type === 'App\Models\Accommodation') {
-                $accommodation = Accommodation::findOrFail($reservation->reservable_id);
-                $accommodation->is_available = false;
-                $accommodation->save();
             }
         });
         return $this->respondWithSuccess(__(':title cancelled successfully', ['title'=>trans_choice('reservation', 1)]));

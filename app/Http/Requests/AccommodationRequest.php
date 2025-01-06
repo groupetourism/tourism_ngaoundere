@@ -24,8 +24,9 @@ class AccommodationRequest extends FormRequest
     {
         $accommodationId = $this->route('accommodation');
         $rules = [
-            'type' => ['required', 'numeric', 'in:1,2,3'],
-            'name' => ['required', 'string', 'max:100', Rule::unique('accommodations')->ignore($accommodationId)],
+            'department_id' => 'required|numeric|exists:departments,id',
+            'type' => ['required', 'numeric', 'in:1,2,3,4,5,6'],
+            'name' => ['required', 'string', 'max:100'],
             'description' => 'string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
@@ -35,26 +36,48 @@ class AccommodationRequest extends FormRequest
         ];
 
         switch ($this->input('type')) {
-            case 1:
+            case config('constants.HOTEL'):
                 $rules = array_merge($rules, [
-                    'parking' => 'boolean',
-                ]);
-                break;
-            case 2:
-                $rules = array_merge($rules, [
-                    'price_per_day' => 'numeric',
+                    'promoter' => 'required|string|max:100',
                     'number_of_stars' => 'numeric',
-                    'number_of_parlors' => 'numeric',
-                    'number_of_rooms' => 'numeric',
-                    'number_of_kitchens' => 'numeric',
-                    'number_of_bathroom' => 'numeric',
-                    'number_of_shower' => 'numeric',
-                    'balcony' => 'boolean',
                     'parking' => 'boolean',
-                    'is_available' => 'required|boolean',
+                    'number_of_rooms' => 'numeric',
+                    'number_of_beds' => 'numeric',
+                    'restaurant_capacity' => 'numeric',
+                    'bar_capacity' => 'numeric',
+                    'conference_room_capacity' => 'numeric',
                 ]);
                 break;
-            case 3:
+            case config('constants.RESTAURANT'):
+                $rules = array_merge($rules, [
+                    'promoter' => 'required|string|max:100',
+                    'restaurant_capacity' => 'numeric',
+                    'bar_capacity' => 'numeric',
+                ]);
+                break;
+            case config('constants.LEISURE'):
+                $rules = array_merge($rules, [
+                    'promoter' => 'required|string|max:100',
+                    'capacity' => 'numeric',
+                ]);
+                break;
+            case config('constants.HOSPITAL'):
+                $rules = array_merge($rules, [
+                    'is_public' => 'required|boolean',
+                ]);
+                break;
+            case config('constants.TRAVEL_AGENCIES'):
+                break;
+            case config('constants.HOSTEL'):
+                $rules = array_merge($rules, [
+                    'promoter' => 'required|string|max:100',
+                    'number_of_stars' => 'numeric',
+                    'parking' => 'boolean',
+                    'number_of_rooms' => 'numeric',
+                    'number_of_beds' => 'numeric',
+                    'restaurant_capacity' => 'numeric',
+                    'bar_capacity' => 'numeric',
+                ]);
                 break;
         }
         return $rules;

@@ -22,6 +22,8 @@ class VehicleController extends Controller
             $q->where('type', $request->type_vehicle);
         })->when($request->available, function ($q) use ($request){
             $q->where('is_available', $request->available);
+        })->when($request->department, function ($q) use ($request){
+            $q->where('department_id', $request->department);
         })->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('vehicle', 2)]),

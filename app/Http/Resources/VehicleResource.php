@@ -16,6 +16,7 @@ class VehicleResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'department_id' => $this->department_id,
             'type' => $this->type,
             'license_plate' => $this->license_plate,
             'provider_name' => $this->provider_name,
@@ -27,7 +28,8 @@ class VehicleResource extends JsonResource
             'contact_info' => $this->contact_info,
             'website' => $this->website,
             'reservations' => EventResource::collection($this->whenLoaded('reservations')),
-            'tours' => TourResource::collection($this->whenLoaded('tours'))
+            'tours' => TourResource::collection($this->whenLoaded('tours')),
+            'department' => DepartmentResource::collection($this->whenLoaded('department'))
         ];
     }
 }

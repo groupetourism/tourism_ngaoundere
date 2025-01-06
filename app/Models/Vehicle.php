@@ -3,12 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Vehicle extends Model
 {
     protected $guarded = [];
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
     public function reservations(): MorphMany
     {
         return $this->morphMany(Reservation::class, 'reservable');

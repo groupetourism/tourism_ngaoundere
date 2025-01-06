@@ -17,8 +17,10 @@ class SiteController extends Controller
     {//trie pas jour ouvert, prix
         $search = ucwords($request->input('search'), " ");
         $query = Site::query()->when($request->search, function ($q) use ($search){
-                $q->where('name', 'like',  "%{$search}%");
-            })->paginate(config('constants.PAGINATION_LIMIT'));
+            $q->where('name', 'like',  "%{$search}%");
+        })->when($request->department, function ($q) use ($request){
+            $q->where('department_id', $request->department);
+        })->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('site', 2)]),
             $query, SiteResource::collection($query->items()));
@@ -32,7 +34,7 @@ class SiteController extends Controller
     public function store(SiteRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $data['opening_hours'] = json_encode($request->opening_hours);
+//        $data['opening_hours'] = json_encode($request->opening_hours);
         $data['image'] = $this->uploadFile($request, 'image', 'public/sites');
         Site::create($data);
         return $this->respondWithSuccess(__(':title added successfully', ['title'=>trans_choice('site', 1)]));

@@ -16,27 +16,29 @@ class AccommodationResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'department_id' => $this->department_id,
             'type' => $this->type,
             'name' => $this->name,
             'description' => $this->description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'price_per_day' => $this->price_per_day,
+            'promoter' => $this->promoter,
             'number_of_stars' => $this->number_of_stars,
-            'number_of_parlors' => $this->number_of_parlors,
             'number_of_rooms' => $this->number_of_rooms,
-            'number_of_kitchens' => $this->number_of_kitchens,
-            'number_of_bathroom' => $this->number_of_bathroom,
-            'number_of_shower' => $this->number_of_shower,
-            'balcony' => $this->balcony,
+            'number_of_beds' => $this->number_of_beds,
+            'restaurant_capacity' => $this->restaurant_capacity,
+            'bar_capacity' => $this->bar_capacity,
+            'conference_room_capacity' => $this->conference_room_capacity,
+            'capacity' => $this->capacity,
             'parking' => $this->parking,
-            'is_available' => $this->is_available,
+            'is_public' => $this->is_public,
             'image' => $this->image,
             'contact_info' => $this->contact_info,
             'website' => $this->website,
             'rooms' => RoomResource::collection($this->whenLoaded('rooms')),
             'tours' => TourResource::collection($this->whenLoaded('tours')),
             'reservations' => ReservationResource::collection($this->whenLoaded('reservations')),
+            'department' => DepartmentResource::collection($this->whenLoaded('department'))
 
         ];
     }
