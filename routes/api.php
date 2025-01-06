@@ -27,8 +27,8 @@ Route::prefix('v1')->group(function () {
     Route::put('users/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
     Route::apiResource('users', UserController::class)->only(['store']);
 
-    Route::group([], function () { // mine and others info or  my own only
-        Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['middleware' => 'auth:sanctum'], function () { // mine and others info or  my own only
+        Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::apiResource('sites', SiteController::class)->only(['store', 'update', 'destroy']);
             Route::apiResource('vehicles', VehicleController::class)->only(['store', 'update', 'destroy']);
             Route::apiResource('accommodations', AccommodationController::class)->only(['store', 'update', 'destroy']);
