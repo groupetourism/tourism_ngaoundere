@@ -20,6 +20,8 @@ class EventController extends Controller
             $q->where('name', 'like',  "%{$search}%");
         })->when($request->site, function ($q) use ($request){
             $q->where('site_id', $request->site);
+        })->when($request->department, function ($q) use ($request){
+            $q->where('department_id', $request->department);
         })->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('event', 2)]),

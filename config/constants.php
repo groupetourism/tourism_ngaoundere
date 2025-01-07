@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'PAGINATION_LIMIT' => 100,
+    'PAGINATION_LIMIT' => 10,
     'TIME_ZONE' => 'Africa/Douala',
     'HOTEL' => 1,
     'RESTAURANT' => 2,

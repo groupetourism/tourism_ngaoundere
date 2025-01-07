@@ -12,6 +12,11 @@ class Event extends Model
 
     protected $guarded = [];
 
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
     public function site(): BelongsTo
     {
         return $this->belongsTo(Site::class, 'site_id', 'id');

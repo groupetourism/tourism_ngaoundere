@@ -22,6 +22,7 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'department_id' => 'required|numeric|exists:departments,id',
             'site_id' => 'required|numeric|exists:sites,id',
             'name' => 'required|string|max:100',
             'description' => 'string|max:255',

@@ -16,6 +16,7 @@ class EventResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'department_id' => $this->department_id,
             'site_id' => $this->site_id,
             'name' => $this->name,
             'description' => $this->description,
@@ -23,8 +24,8 @@ class EventResource extends JsonResource
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'image' => $this->image,
-            'site' => new SiteResource($this->whenLoaded('site'))
-
+            'site' => new SiteResource($this->whenLoaded('site')),
+            'department' => DepartmentResource::collection($this->whenLoaded('department'))
         ];
     }
 }

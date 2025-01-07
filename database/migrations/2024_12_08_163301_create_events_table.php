@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->constrained();
             $table->foreignId('site_id')->nullable()->constrained();
             $table->string('name');
             $table->longText('description')->nullable();

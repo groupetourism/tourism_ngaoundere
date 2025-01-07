@@ -22,7 +22,6 @@ class AccommodationRequest extends FormRequest
      */
     public function rules(): array
     {
-        $accommodationId = $this->route('accommodation');
         $rules = [
             'department_id' => 'required|numeric|exists:departments,id',
             'type' => ['required', 'numeric', 'in:1,2,3,4,5,6'],

@@ -39,7 +39,6 @@ class AccommodationResource extends JsonResource
             'tours' => TourResource::collection($this->whenLoaded('tours')),
             'reservations' => ReservationResource::collection($this->whenLoaded('reservations')),
             'department' => DepartmentResource::collection($this->whenLoaded('department'))
-
         ];
     }
 }
