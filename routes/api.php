@@ -27,6 +27,13 @@ Route::prefix('v1')->group(function () {
     Route::put('users/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
     Route::apiResource('users', UserController::class)->only(['store']);
 
+    Route::apiResource('sites', SiteController::class)->only(['index', 'show']);
+    Route::apiResource('vehicles', VehicleController::class)->only(['index', 'show']);
+    Route::apiResource('accommodations', AccommodationController::class)->only(['index', 'show']);
+    Route::apiResource('rooms', RoomController::class)->only(['index', 'show']);
+    Route::apiResource('events', EventController::class)->only(['index', 'show']);
+    Route::get('departments', [UserController::class, 'listDepartments'])->name('departments.index');
+
     Route::group(['middleware' => 'auth:sanctum'], function () { // mine and others info or  my own only
         Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::apiResource('sites', SiteController::class)->only(['store', 'update', 'destroy']);
@@ -37,12 +44,6 @@ Route::prefix('v1')->group(function () {
             Route::apiResource('users', UserController::class)->only(['index']);
             //confirm reservation by admin
         });
-        Route::apiResource('sites', SiteController::class)->only(['index', 'show']);
-        Route::apiResource('vehicles', VehicleController::class)->only(['index', 'show']);
-        Route::apiResource('accommodations', AccommodationController::class)->only(['index', 'show']);
-        Route::apiResource('rooms', RoomController::class)->only(['index', 'show']);
-        Route::apiResource('events', EventController::class)->only(['index', 'show']);
-        Route::get('departments', [UserController::class, 'listDepartments'])->name('departments.index');
 
         Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');//show only mine but admin can show for all, edit & delete only mine
         Route::put('users', [UserController::class, 'edit'])->name('users.edit');
