@@ -14,8 +14,8 @@ class RoomSeeder extends Seeder
     public function run(): void
     {
         DB::table('rooms')->insert([
-            ['accommodation_id' => 1, 'room_number' => 001,  'capacity' => 4, 'price_per_night' => 30000, 'is_available' => true, 'image' => 'https://fakeimg.pl/300/'],
-            ['accommodation_id' => 1, 'room_number' => 002,  'capacity' => 2, 'price_per_night' => 20000, 'is_available' => false, 'image' => 'https://fakeimg.pl/300/'],
+            ['accommodation_id' => 1, 'room_number' => 001,  'capacity' => 4, 'price_per_night' => 30000, 'is_available' => false, 'image' => 'https://fakeimg.pl/300/'],
+            ['accommodation_id' => 1, 'room_number' => 002,  'capacity' => 2, 'price_per_night' => 20000, 'is_available' => true, 'image' => 'https://fakeimg.pl/300/'],
         ]);
     }
 }

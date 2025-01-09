@@ -33,6 +33,10 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 - **php artisan storage:link**
 - **php artisan serve**
 
+### Notes
+- **run "php artisan optimize" when you modify api.php**
+- **run "php artisan migrate:fresh --seed" when any migrate file is modified. Note that this command drop all your database and populate it again with seeders data**
+- **View the config/constants.php file or migration file for accommodations and vehicles for the integer value that corresponds to the vehicle types and accommodation types**
 
 ## License
 

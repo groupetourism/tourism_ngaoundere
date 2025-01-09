@@ -72,16 +72,16 @@ class Handler extends ExceptionHandler
     {
         return match (true) {
             $exception instanceof ValidationException => $this->respondFailedValidation($exception->errors()),
-//            $exception instanceof AuthenticationException => $this->logAndRespond($exception, 'vous n\'etes pas authentifié', Response::HTTP_UNAUTHORIZED),
-//            $exception instanceof ModelNotFoundException => $this->logAndRespond($exception, 'l\'élément demandé est introuvable', Response::HTTP_NOT_FOUND),
-//            $exception instanceof MethodNotAllowedHttpException => $this->logAndRespond($exception, 'cette méthode n\'est pas autorisée', Response::HTTP_FORBIDDEN),
-//            $exception instanceof NotFoundHttpException => $this->logAndRespond($exception, 'ressource non trouvée', Response::HTTP_NOT_FOUND),
-//            $exception instanceof HttpExceptionInterface => $this->logAndRespond($exception, null, $exception->getStatusCode()),
-//            $exception instanceof QueryException => $this->logAndRespond($exception, "une erreur de requête est survenue"),
-//            $exception instanceof HttpException => $this->logAndRespond($exception, "erreur http"),
-//            $exception instanceof HttpResponseException => $this->logAndRespond($exception, "erreur de réponse http", $exception->getStatusCode()),
-//            default => $this->logAndRespond($exception, "erreur de serveur interne", Response::HTTP_INTERNAL_SERVER_ERROR),
-            default => $this->respondError($exception, 500),
+            $exception instanceof AuthenticationException => $this->logAndRespond($exception, 'vous n\'etes pas authentifié', Response::HTTP_UNAUTHORIZED),
+            $exception instanceof ModelNotFoundException => $this->logAndRespond($exception, 'l\'élément demandé est introuvable', Response::HTTP_NOT_FOUND),
+            $exception instanceof MethodNotAllowedHttpException => $this->logAndRespond($exception, 'cette méthode n\'est pas autorisée', Response::HTTP_FORBIDDEN),
+            $exception instanceof NotFoundHttpException => $this->logAndRespond($exception, 'ressource non trouvée', Response::HTTP_NOT_FOUND),
+            $exception instanceof HttpExceptionInterface => $this->logAndRespond($exception, null, $exception->getStatusCode()),
+            $exception instanceof QueryException => $this->logAndRespond($exception, "une erreur de requête est survenue"),
+            $exception instanceof HttpException => $this->logAndRespond($exception, "erreur http"),
+            $exception instanceof HttpResponseException => $this->logAndRespond($exception, "erreur de réponse http", $exception->getStatusCode()),
+            default => $this->logAndRespond($exception, "erreur de serveur interne", Response::HTTP_INTERNAL_SERVER_ERROR),
+//            default => $this->respondError($exception, 500),
         };
     }
 

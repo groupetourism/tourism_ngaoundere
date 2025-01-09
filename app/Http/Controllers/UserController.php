@@ -93,8 +93,8 @@ class UserController extends Controller
     public function updatePassword(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'current_password' => 'required|string|min:5|max:15',
-            'password' => 'required|string|min:5|max:15|confirmed',
+            'current_password' => 'required|string|min:8|max:15',
+            'password' => 'required|string|min:8|max:15|confirmed',
             'password_confirmation' => 'required',
         ]);
         if ($validator->fails()){

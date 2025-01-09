@@ -46,11 +46,11 @@ Route::prefix('v1')->group(function () {
 
         Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');//show only mine but admin can show for all, edit & delete only mine
         Route::put('users', [UserController::class, 'edit'])->name('users.edit');
-        Route::delete('users', [UserController::class, 'delete'])->name('users.destroy');
+        Route::delete('users', [UserController::class, 'destroy'])->name('users.destroy');
         Route::apiResource('tour-plans', TourController::class)->only(['index', 'show']);//index & show only mine but admin can index and show for all, edit & delete only mine
         Route::post('tour-plans', [TourController::class, 'store'])->name('tour-plans.store');
         Route::put('tour-plans', [TourController::class, 'edit'])->name('tour-plans.edit');
-        Route::delete('tour-plans', [TourController::class, 'delete'])->name('tour-plans.destroy');
+        Route::delete('tour-plans', [TourController::class, 'destroy'])->name('tour-plans.destroy');
         Route::apiResource('reservations', ReservationController::class)->only(['index', 'show']);//index & show only mine but admin can index and show for all, edit & delete only mine
         Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
         Route::delete('reservations', [ReservationController::class, 'delete'])->name('reservations.destroy');
