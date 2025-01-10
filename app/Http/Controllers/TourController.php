@@ -18,11 +18,11 @@ class TourController extends Controller
         if (!auth()->user()->is_admin){
             if (!empty($request->user) && (int) $request->user !== auth()->id())
                 return $this->respondForbidden('vous n\'avez pas le role et les permissions requise pour accéder a la resource');
-            $query = auth()->user()->tours()->when($request->user, function ($q) use ($request){
+            $query = auth()->user()->tours()->with(['site', 'user'])->when($request->user, function ($q) use ($request){
                 $q->where('user_id', $request->user);
             })->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
         }else{
-            $query = Tour::query()->when($request->user, function ($q) use ($request){
+            $query = Tour::query()->with(['site', 'user'])->when($request->user, function ($q) use ($request){
                 $q->where('user_id', $request->user);
             })->orderBy('start_date')->paginate(config('constants.PAGINATION_LIMIT'));
         }
@@ -33,6 +33,7 @@ class TourController extends Controller
     {
         if (!auth()->user()->is_admin && $tour_plan->user_id !== auth()->id())
             return $this->respondForbidden('vous n\'avez pas le role et les permissions requise pour accéder a la resource');
+        $tour_plan->load('user', 'site')->get();
         return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('tour', 1)]), $tour_plan);
     }
 

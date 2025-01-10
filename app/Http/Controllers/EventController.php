@@ -16,7 +16,7 @@ class EventController extends Controller
     public function index(ListRequest $request): JsonResponse
     {//trie pas prix
         $search = ucwords($request->input('search'), " ");
-        $query = Event::query()->when($request->search, function ($q) use ($search){
+        $query = Event::query()->with(['site', 'site.department'])->when($request->search, function ($q) use ($search){
             $q->where('name', 'like',  "%{$search}%");
         })->when($request->site, function ($q) use ($request){
             $q->where('site_id', $request->site);
@@ -30,6 +30,7 @@ class EventController extends Controller
 
     public function show(Event $event): JsonResponse
     {
+        $event->load('site', 'site.department')->get();
         return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('event', 1)]), $event);
     }
 

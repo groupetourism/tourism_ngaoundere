@@ -32,7 +32,7 @@ class SiteResource extends JsonResource
             'website' => $this->website,
             'events' => EventResource::collection($this->whenLoaded('events')),
             'tours' => TourResource::collection($this->whenLoaded('tours')),
-            'department' => DepartmentResource::collection($this->whenLoaded('department'))
+            'department' => new DepartmentResource($this->whenLoaded('department'))
         ];
     }
 }

@@ -16,18 +16,19 @@ class SiteController extends Controller
     public function index(ListRequest $request): JsonResponse
     {//trie pas jour ouvert, prix
         $search = ucwords($request->input('search'), " ");
-        $query = Site::query()->when($request->search, function ($q) use ($search){
+        $query = Site::query()->with('department')->when($request->search, function ($q) use ($search){
             $q->where('name', 'like',  "%{$search}%");
         })->when($request->department, function ($q) use ($request){
             $q->where('department_id', $request->department);
         })->paginate(config('constants.PAGINATION_LIMIT'));
 
         return $this->respondSuccessWithPaginate(__('list of :title retrieved successfully', ['title'=>trans_choice('site', 2)]),
-            $query, SiteResource::collection($query->items()));
+        $query, SiteResource::collection($query->items()));
     }
 
     public function show(Site $site): JsonResponse
     {
+        $site->load('department')->get();
         return $this->respondWithSuccess(__(':title retrieved successfully', ['title'=>trans_choice('site', 1)]), $site);
     }
 
