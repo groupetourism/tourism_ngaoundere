@@ -17,8 +17,8 @@ return new class extends Migration
             $table->enum('type', [1, 2, 3, 4, 5, 6]); //hotel, resto, loisir, hopital, agence voyage, auberge
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->string('promoter')->nullable();
 
             $table->integer('number_of_stars')->nullable();
